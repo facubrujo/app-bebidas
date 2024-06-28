@@ -1,0 +1,171 @@
+{% extends './base.html' %}
+
+{% block header1 %}
+{% endblock %}
+<main class="container bg-dark">
+  {% block main %}
+
+    <h1 class="text-center">Todos los usuarios en la BD</h1>
+    <div class="input-group mb-3 container">
+      <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+      <input id="filtro" type="text" class="form-control" placeholder="buscar por nombre" aria-label="Username" aria-describedby="basic-addon1" />
+    </div>
+    <section class="container">
+      <table class="table tabla-color table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Genero</th>
+            <th scope="col">email</th>
+            <th scope="col">contraseña</th>
+            <th scope="col">Mayor</th>
+            <th scope="col">Rol</th>
+            <th scope="col">alta</th>
+            <!--<th scope="col">imagen</th>-->
+            <th scope="col">Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for usuario in usuarios %}
+            <tr class="usuario">
+              <td scope="row">{{ usuario.id }}</td>
+              <td class="nombre">{{ usuario.nombre }}</td>
+              <td>{{ usuario.apellido }}</td>
+              <td>{{ usuario.genero }}</td>
+              <td>{{ usuario.email }}</td>
+              <td style="
+              max-width: 100px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;"
+              
+              >{{ usuario.password }}</td>
+              <td>{{ usuario.mayor }}</td>
+              <td>{{ usuario.rol }}</td>
+              <td>
+                <form action="/alta_usuario/{{ usuario.id }}" method="post" enctype="multipart/form-data">
+                  {% if usuario.alta %}
+                  <button class="btn btn-outline-success" type="submit">Dar baja</button>
+                  {% else %}
+                  <button class="btn btn-outline-warning" type="submit">Dar alta</button>
+                  {% endif %}
+                </form>
+
+              </td>
+              <!--<td>
+                {% if usuario.image %}
+                  <img src="{{ url_for('get_user_image', user_id=usuario.id) }}" alt="User Image" style="width: 100px; height: auto;" />
+                {% else %}
+                  No image
+                {% endif %}
+              </td>-->
+              <td>
+                <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#modificar{{ usuario.id }}" aria-controls="offcanvasRight">Editar / Eliminar</button>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="modificar{{ usuario.id }}" aria-labelledby="offcanvasRightLabel">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasRightLabel">Editar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <!--  Modificar usuario  -->
+                  <div class="offcanvas-body">
+                    <h2>Modificar usuario</h2>
+                    <form class="m-2 p-2" action="/admin_dashboard/{{ usuario.id }}" method="post" enctype="multipart/form-data">
+                      <div class="input-grup">
+                        <label class="form-label" for="nombre{{ usuario.id }}">Nombre:</label>
+                        <input class="form-control" type="text" id="nombre{{ usuario.id }}" name="nombre" value="{{ usuario.nombre }}" />
+
+                        <label class="form-label " for="apellido{{ usuario.id }}">Apellido:</label>
+                        <input class="form-control" type="text" id="apellido{{ usuario.id }}" name="apellido" value="{{ usuario.apellido }}" />
+
+                        <label class="form-label " for="email{{ usuario.id }}">email:</label>
+                        <input class="form-control" type="email" id="email{{ usuario.id }}" name="email" value="{{ usuario.email }}" />
+
+                        <label class="form-label " for="password{{ usuario.id }}">contraseña:</label>
+                        <input class="form-control" type="text" id="password{{ usuario.id }}" name="password" value="{{ usuario.password }}" />
+
+                        <div >
+                            <span>Mayor de edad : {{usuario.mayor}}</span>
+                            <label for="esMayor"> 
+                                <span id="esMayor-error" ></span>
+                            </label>
+                            <select id="esMayor" name="mayor" class="select" >
+                                <option value="{{usuario.mayor}}" selected>Cambiar</option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                            
+                        </div>
+                        
+                        <div class="separador-edit">
+                          <div>
+                            <span>Genero:  : {{usuario.genero}}</span>
+                            <label for="esMayor"> 
+                                <span id="genero-error" ></span>
+                            </label>
+                            <select name="genero" class="select" >
+                                <option value="{{usuario.genero}}"  selected>Cambiar</option>
+                                <option value="Varon">Varon</option>
+                                <option value="Mujer">Mujer</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                          </div>
+                        </div>
+
+                      </div>
+                      
+                      <!--<div class="mod-img separador-edit">
+                        <div>
+                          {% if usuario.image %}
+                            <img src="{{ url_for('get_user_image', user_id=usuario.id) }}" alt="User Image" style="width: 100px; height: auto;" />
+                          {% else %}
+                            No image
+                          {% endif %}
+                        </div>
+                        <div class="mod-img-contenedor">
+                          <div class="contenedor-imagen">
+                            <label for="archivo{{ usuario.id }}" class="btn-editar-imagen border bg-warning border-warning">Cambiar imagen</label>
+                            <input hidden id="archivo{{ usuario.id }}" type="file" name="image" accept="image/*" />
+                          </div>
+                          <div class="contenedor-imagen">
+                            <button class="btn btn-warning">Eliminar imagen</button>
+                          </div>
+                        </div>
+                      </div> -->
+
+                      <button class="btn btn-primary w-100 mt-2" type="submit">Modificar usuario</button>
+                    </form>
+                    <br />
+                    <form class="m-2 p-2" action="/alta_usuario/{{ usuario.id }}" method="post" enctype="multipart/form-data">
+                      <h6>Al dar de baja este usuario sus datos quedaran en la base de datos
+                        pero la cuenta quedara bloqueada</h6>
+                      {% if usuario.alta %}
+                      <button class="btn btn-warning w-100" type="submit">Dar de baja este usuario</button>
+                      {% else %}
+                      <button class="btn btn-success w-100" type="submit">Dar de alta este usuario</button>
+                      {% endif %}
+                    </form>
+                    <form class="m-2 p-2" action="/eliminar_usuario/{{ usuario.id }}" method="post" enctype="multipart/form-data">
+                      <h6>Al eliminar estará el usuario será eliminando de la base de datos definitivamente</h6>
+                      
+                      <button class="btn btn-danger w-100" type="submit">Eliminar usuario</button>
+                    </form>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% endblock %}
+</main>
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/modo_oscuro.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends './base.html' %}
+  
+    {% block header1 %}{% endblock  %}
+
+  <main>
+    {% block main %}
+    <h1 class="text-center">Nuestras bebidas</h1>
+    
+
+    <section>
+      <h3 hidden>Buscador</h3>
+
+      <form class="text-center" action="/bebidas/busqueda" method="GET">
+        {% for letra in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+            <button type="submit" name="letra" value="{{ letra }}" class="alfabetico letra">{{ letra }}</button>
+            {% endfor %}
+      </form>
+
+
+      <form id="formulario-busqueda" class="form-busqueda-tlt" action="/resultados_busqueda" method="GET">
+          <div>
+              <input type="text" id="input-busqueda" name="palabra" class="form-control"
+                  placeholder="Buscar tragos por ej: margarita , belmont , daiquiri">
+          </div>
+          <div>
+              <button type="submit" class="btn btn-outline-secondary btn-md">Buscar</button>
+          </div>
+      </form>
+      <div class="d-flex justify-content-center flex-wrap">
+        <form class="mx-1" action="/bebidas">
+          <button id="bebidas-todas" class="btn btn-primary" type="submit">Todas las bebidas</button>
+        </form>
+        {% if user.nombre != "visitante" and user.mayor == "si" %}
+        <form class="mx-1" action="/bebidas/con_alcohol">
+          <button id="bebidas-alc" class="btn btn-primary" type="submit">Con alcohol</button>
+        </form>
+        {% endif %}
+        <form class="mx-1" action="/bebidas/sin_alcohol">
+          <button id="bebidas-no-alc" class="btn btn-primary" type="submit">Sin alcohol</button>
+        </form>
+      </div>
+  
+    </section>
+
+    <h1 class="text-center">Todas las bebidas</h1>
+    
+    <div class="alcohol">  
+      
+      {% for trago in tragos %}
+      
+        <div style="display: none;"></div>
+        <div >
+          <div class="imagenes">
+            <div class="imgFondo" style="background-image: url({{ trago.strDrinkThumb }});">
+              <div class="tarjeta-imagen">
+                <h3 style="text-align: center; color: rgb(255, 255, 255);">{{ trago.strDrink }}</h3>
+                <form id="form" class="form">
+                  <button class="btn-calificacion" style="background: none;">⭐</button>
+                  <button class="btn-calificacion" style="background: none;">⭐</button>
+                  <button class="btn-calificacion" style="background: none;">⭐</button>
+                  <button class="btn-calificacion" style="background: none;">⭐</button>
+                  <button class="btn-calificacion" style="background: none;">⭐</button>
+                </form>
+              </div>
+            </div>
+            <p>{{ trago.strDrink }}</p>
+            <p class="id-trago" hidden="">{{ trago.idDrink }}</p>
+          </div>
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+    <!-- Ventana Modal permanece oculta hasta que se clickea una imagen -->
+    <section id="miModal" class="modal">
+      <h3 hidden>Modal</h3>
+      <div class="modal-contenido">
+          <div id="contenidoModal" class="trago-modal"></div>
+          <div class="cerrar-modal">
+            <!--{% if user  %}
+            <button class="favoritos-btn" id="mi-lista"><i class="bi bi-heart"></i></button>
+            <button class="favoritos-btn" id="mi-lista-ok"><i class="bi bi-heart-fill"></i></button>
+            {% endif %} -->
+              <button class="cerrar" id="cerrarModal">Cerrar</button>
+          </div>
+      </div>
+    </section>
+    {% endblock  %}
+  </main>
+    {% block scripts %}
+    <script src="{{url_for('static', filename='js/modo_oscuro.js')}}"></script>
+    <script src="{{url_for('static', filename='js/ventana_modal.js')}}"></script>
+    <script src="{{url_for('static', filename='js/metodos_varios.js')}}"></script>
+    <!--<script src="{{url_for('static', filename='js/mayor.js')}}"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+ 
+    {% endblock  %}
+  

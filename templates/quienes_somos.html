@@ -1,0 +1,150 @@
+{% extends "./base.html" %}
+
+    {% block title %} - Quiénes somos -{% endblock  %}
+
+    {% block header1 %}{% endblock header1 %}
+
+    <main>
+        {% block main %}
+        <!-- SECCION QUIENES SOMOS -->
+        <section>
+            <div class="titulo">
+                <h1 class="heading"><i class="fas fa-rocket"></i>
+                    Quienes Somos</h1>
+                <p>Somos el Grupo 19, conformado por Facundo, Maximiliano, Rubén y Esteban, el trabajo realizado nos permitió abordar un proyecto complejo y superador. Cada uno de nosotros aportó sus habilidades y conocimientos específicos para llevar a cabo un proyecto que cumpla con las consignas establecidas por los profesores y agregando un poco de nuestra creatividad.</p>
+            </div>
+            <div class="contenedor">
+                <article class="about">
+                    <div class="about-img">
+                        <img src="{{url_for('static', filename='img/codoacodo.jpg')}}" alt="img-cac">
+                    </div>
+                    <div class="about-contenido">
+                        <h2>Estrategia de colaboración</h2>
+                        <p>Realizamos muchas reuniones por Discord para determinar cuáles serían los temas a tratar en la página, una vez definido el tema nos pusimos en marchar para el maquetado inicial y sus componentes, que debería tener, como mostrarlo, que colores y fuentes ocupar, etc. Nos dividimos las tareas por vistas y algunos componentes.
+                        <br><br>
+                        Los enlaces a páginas guía o documentación las fuimos subiendo a Trello, con una lista de tareas por realizar, utilizamos Figma para describir una idea general de la página y algunas vistas, el aviso por el grupo de WhatsApp sobre los cambios realizados fue fundamental para coordinar y ver quien estaba trabajando sobre que vista. Todos los cambios los mostrábamos por Discord, compartiendo pantallas en las reuniones que efectuábamos, decidimos utilizar esta plataforma para no limitar el tiempo como con Meet.
+                        <br><br>
+                        A cada obstáculo que nos encontrábamos debatíamos como solucionar, todos colaboramos con las ideas de implementación y elaboración de la solución. Estábamos en constante comunicación y muestra de avances, nos poníamos fechas límites para avanzar con el proyecto. Si bien algunos compañeros codearon más que otros la relación del trabajo con las opiniones y estrategias fue compartida.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <div class="skills">
+            <h2 class="heading"><i class="bi bi-tools"></i>Herramientas Utilizadas
+            </h2>
+            <div class="skills_contenido">
+                <div class="skills_box">
+                    <img src="{{url_for('static', filename='img/Logo_Html.png')}}"  alt="Logo Html" class="skills_img">
+                    <span class="skills_nombre">Html</span>
+                </div>
+                <div class="skills_box">
+                    <img src="{{url_for('static', filename='/img/Logo_Css.png')}}" alt="Logo Css" class="skills_img">
+                    <span class="skills_nombre">Css</span>
+                </div>
+                <div class="skills_box">
+                    <img src="{{url_for('static', filename='img/Logo_Javascript.png')}}" alt="Logo JavaScript" class="skills_img">
+                    <span class="skills_nombre">JavaScript</span>
+                </div>
+                <div class="skills_box">
+                    <img src="{{url_for('static', filename='img/Logo_Bootstrap.png')}}" alt="Logo Bootstrap" class="skills_img">
+                    <span class="skills_nombre">Bootstrap</span>
+                </div>
+                <div class="skills_box">
+                    <img src="{{url_for('static', filename='img/Logo_GitHub.png')}}" alt="Logo GitHub" class="skills_img">
+                    <span class="skills_nombre">GitHub</span>
+                </div>
+                <div class="skills_box">
+                    <img src="{{url_for('static', filename='img/Logo_Figma.png')}}" alt="Logo Figma" class="skills_img">
+                    <span class="skills_nombre">Figma</span>
+                </div>
+                <div class="skills_box">
+                    <img src="{{url_for('static', filename='img/Logo_Discord.png')}}" alt="Logo Discord" class="skills_img">
+                    <span class="skills_nombre">Discord</span>
+                </div>
+                <div class="skills_box">
+                    <img src="{{url_for('static', filename='img/Logo_VisualStudio.png')}}" alt="Logo VisualStudio" class="skills_img">
+                    <span class="skills_nombre">Visual Studio</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="seccion-equipo">
+            <h2 class="heading"><i class="bi bi-people"></i>Nuestro Equipo
+            </h2>
+            <div class="contenedor">
+                <div class="cardss">
+                    <div class="top-bar"></div>
+                    <div class="details">
+                        <img src="{{url_for('static',filename='img/DSC04479-01.jpeg')}}" alt="img-persona">
+                        <strong>Maximiliano Centurion</strong>
+                    </div>
+                    <div class="iconosredes">
+                        <a href="https://www.linkedin.com/in/maxi-centurion/" target="_blank"><i
+                                class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/MaxiZent" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="mailto:maxicenturion10@gmail.com"><i class="fa fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div class="cardss">
+                    <div class="top-bar"></div>
+                    <div class="details">
+                        <img src="{{url_for('static', filename='img/408946159_332548886186579_1821334070132204092_n.jpg')}}" alt="img-persona">
+                        <strong>Facundo Fernandez</strong>
+                    </div>
+                    <div class="iconosredes">
+                        <a href="https://www.linkedin.com/in/facufdez/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/facubrujo" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="mailto:facudev87@gmail.com"  target="_blank"><i class="fa fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div class="cardss">
+                    <div class="top-bar"></div>
+                    <div class="details">
+                        <img src="{{url_for('static',filename='img/RubenLedesmaPerfil.jpeg')}}" alt="img-persona">
+                        <strong>Ruben Ledesma</strong>
+                    </div>
+                    <div class="iconosredes">
+                        <a href="https://www.linkedin.com/in/rubendledesma/" target="_blank"><i
+                                class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/ElRubenD" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="mailto:ruben.d.ledesma@gmail.com" target="_blank"><i class="fa fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="cardss">
+                    <div class="top-bar"></div>
+                    <div class="details">
+                        <img src="{{url_for('static',filename='img/Esteban-img.jpeg')}}" alt="img-persona">
+                        <strong>Esteban</strong>
+                    </div>
+                    <div class="iconosredes">
+                        <a href="#" target="_blank"><i
+                                class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Tebi1999" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="mailto:estebansileoni@hotmail.com" target="_blank"><i class="fa fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <button id="scrollBtn" title="Subir arriba"><i class="fa fa-chevron-up"></i></button>
+        {% endblock %}
+    </main>
+
+    {% block scripts %}
+    <script src="{{url_for('static', filename='js/modo_oscuro.js')}}"></script>
+
+    <!--<script src="{{url_for('static', filename='js/verificacion.js')}}"></script>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+    <script src="{{url_for('static', filename='js/boton_up.js')}}"></script>
+    {% endblock  %}

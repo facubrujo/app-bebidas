@@ -1,0 +1,289 @@
+/* ---- pruebas ----*/
+
+/* .tarjeta-imagen{
+    display: none;
+    width: 20rem;
+    height: 10rem;
+    background-color: #0000009e;
+
+    transition: transform 1s ease-in-out;
+}
+
+.imagenes:hover .tarjeta-imagen{
+    
+
+        display: block;
+        transform:translateY(80px);
+    
+} */
+
+.imagenes:hover .tarjeta-imagen {
+    display: block;
+    animation: mostrarTarjeta 1s forwards;
+    overflow: hidden;
+}
+
+.imgFondo {
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    width: 15rem;
+    height: 15rem;
+    position: relative;
+}
+
+.imagenes p {
+    font-size: 19px;
+    font-weight: bold;
+    text-align: center;
+    width: 15rem;
+}
+
+.imagenes:hover p {
+    transition: display 0.3s ease;
+    display: none;
+}
+
+.tarjeta-imagen {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0000009e;
+    animation: ocultarTarjeta 1s forwards;
+}
+
+@keyframes mostrarTarjeta {
+    from {
+        transform: scaleY(0px);
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: scaleY(50rem);
+        transform: translateY(30%);
+    }
+}
+
+@keyframes ocultarTarjeta {
+    from {
+        transform: translateY(50%);
+        /* display: none; */
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}
+
+.tarjeta-imagen .form {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-calificacion {
+
+    transition: transform 0.3s ease;
+}
+
+.btn-calificacion:hover {
+    transform: scale(1.5);
+
+}
+
+
+/* --- prueba pantalla carga pagina --- */
+
+/* .hidden{
+    overflow: hidden;
+} */
+.carga {
+    height: 50vh;
+
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* color:aliceblue; */
+}
+
+/* --- estilos de elipsis de carga --- // --- de : https://loading.io/css/  --- */
+.lds-ellipsis,
+.lds-ellipsis div {
+    box-sizing: border-box;
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 33.33333px;
+    width: 13.33333px;
+    height: 13.33333px;
+    border-radius: 50%;
+    background: currentColor;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(24px, 0);
+    }
+}
+
+
+
+.form-busqueda-tlt {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.form-busqueda-tlt>div {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.btn-tlt-contenedor{
+    height: 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.btn-tlt-img {
+    position: relative;
+    overflow: hidden;
+    width: 20rem;
+    height: 7rem;
+}
+
+.btn-tlt img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+}
+.btn-tlt h3{
+    position: relative;
+    left: 28%;
+    top:30%;
+    color: #d6d6d6;
+    text-shadow: 2px 1px 3px rgba(0, 0, 0);
+}
+
+.btn-tlt{
+    transition: transform 0.5s ease;
+    text-decoration: none;
+    margin: 2rem 0;
+}
+.btn-tlt:hover{
+    transform: scale(1.1);
+    border: 2px solid yellow;
+}
+
+
+
+@media (max-width: 992px) {
+    .contenedor-imagenes h2{
+        font-size: 1.5rem;
+    }
+
+    .btn-tlt-img h3{
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor-imagenes h2{
+        font-size: 1.6rem;
+    }
+
+    .btn-tlt-img h3{
+        font-size: 1.6rem;
+    }
+
+    .imagenes{
+        width: 9rem;
+        height: 13rem;
+    }
+    .imagenes p{
+        width: 9rem;
+    }
+    .imgFondo{
+        height: 9rem;
+        width: auto;
+    }
+    .btn-tlt-contenedor{
+        height: auto;
+        gap:2px;
+    }
+    .btn-tlt{
+        margin: 0;
+    }
+}
+@media (max-width: 576px) {
+    .contenedor-imagenes h2{
+        font-size: 1.7rem;
+    }
+
+    .btn-tlt-img h3{
+        font-size: 1.7rem;
+    }
+}

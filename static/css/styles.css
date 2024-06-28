@@ -1,0 +1,962 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.contenedor-imagenes {
+    max-width: 80%;
+    margin: auto;
+}
+
+.alcohol {
+    display: flex;
+    grid-gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.imagenes img {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 5px;
+    box-shadow: 0.5rem 0.5rem 16px #696969;
+}
+
+.imagenes {
+    overflow: hidden;
+    transition: transform 0.5s ease;
+    height: 19rem;
+}
+
+.imagenes:hover {
+    z-index: 1;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000c9;
+    overflow: auto;
+    align-items: center;
+}
+
+.modal-contenido {
+    background-color: #fefefe;
+    margin: 15% auto;
+    border: none;
+    width: initial;
+}
+
+.trago-modal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 25px;
+    width: auto;
+    justify-content: center;
+}
+
+.trago-modal .receta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.receta h3 {
+    width: inherit;
+}
+
+.receta p {
+    width: 20rem;
+}
+
+.cerrar-modal {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.favoritos-btn {
+    font-size: x-large;
+    color: red;
+    background-color: transparent;
+    margin: 0 1rem;
+    transition: transform 0.5s ease;
+}
+
+.favoritos-btn:hover {
+    transform: scale(1.5);
+    z-index: 33;
+}
+
+/* .btn-guardar{
+    font-weight: 600;
+    margin: 1% 0;
+    width: 20rem;
+    padding: 4px 21px;
+    background-color: transparent;
+    color: #000;
+    border: solid #019922 1px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.btn-guardar:hover{
+    background-color: #019922;
+    color: #fefefe;
+} */
+
+.cerrar {
+    font-weight: 600;
+    margin: 1% 0;
+    width: 20rem;
+    padding: 4px 21px;
+    background-color: transparent;
+    color: #000;
+    border: solid #ffc107 1px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.cerrar:hover {
+    background-color: #ffc107;
+    color: #fefefe;
+}
+
+.imagen-modal {
+    width: 20rem;
+}
+
+.cont-img-ingr {
+    margin: 0 auto 1rem;
+    width: 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.cont-img-ingr div {
+    width: 3rem;
+    height: 100%;
+    display: contents;
+}
+
+.cont-img-ingr div img {
+    filter: drop-shadow(3px 3px 4px #000);
+    transition: transform 0.5s ease;
+}
+
+.cont-img-ingr div img:hover {
+    transform: scale(1.5);
+    z-index: 33;
+}
+
+/* ----- Busqueda de tragos -----*/
+
+.resultados-busqueda {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
+
+.trago {
+    max-width: 75rem;
+    width: auto;
+    margin: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    gap: 2rem;
+    box-shadow: 0px 16px 26px #434343b8;
+    overflow: hidden;
+}
+
+.texto-contenedor {
+    max-width: 30rem;
+    width: auto;
+    margin-left: 1rem;
+}
+
+.trago img {
+    width: 20rem;
+}
+
+.prueba {
+    display: none;
+}
+
+/* ----- vista todos los tragos -----*/
+/* ----- ul li alfabeto -----*/
+.alfabetico {
+    /*list-style: none;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*flex-wrap: wrap;*/
+    background: transparent;
+    color:#fff;
+    padding: 10px 5px 0px 5px;
+}
+
+.letra {
+    color: #000;
+    text-decoration: none;
+    margin: 0 2px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.letra:hover {
+    background-color: transparent;
+    color: #000;
+    transform: scale(1.5);
+    z-index: 10;
+}
+
+/*------------------- Estilo del Index -------------------*/
+
+/*------ NAVBAR ------ */
+
+.nav-link {
+    font-size: 1rem !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    transition: 0.5s;
+    border: yellow !important;
+}
+
+.nav-link:hover {
+    color: #ffc107 !important;
+}
+
+#Home {
+    background-image: url("../img/tragos-playa.jpg");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+    filter: brightness(85%);
+}
+
+#Home h1 {
+    color: white;
+    text-shadow: 3px 3px 5px rgba(255, 215, 0, 0.7);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#Home button {
+    background-color: rgba(255, 215, 0);
+}
+
+.form-busqueda-index {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+#Mejores {
+    margin-bottom: 20px;
+}
+
+/* Estilo para los contenedores de imágenes */
+.mtragos img {
+    height: 15rem;
+    width: 15rem;
+    margin: 10px 10px 10px 10px;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0.5rem 0.5rem 16px #696969;
+    display: flex;
+    /* Usa flexbox para alinear contenido verticalmente */
+    justify-content: center;
+    /* Centra horizontalmente el contenido */
+    align-items: center;
+    /* Centra verticalmente el contenido */
+}
+
+/* Media query para resoluciones de pantallas */
+
+@media (max-width: 992px) {
+    #Home h1 {
+        font-size: 1.7rem;
+    }
+
+    #Mejores .titulo h2 {
+        font-size: 1.5rem;
+    }
+
+    #Mejores .titulo p {
+        text-align: justify;
+        font-size: 1.2rem;
+    }
+
+}
+
+@media (max-width: 768px) {
+    #Home h1 {
+        font-size: 2rem;
+    }
+
+    #Mejores .titulo h2 {
+        font-size: 1.8rem;
+    }
+
+    #Mejores .titulo p {
+        text-align: justify;
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #Home h1 {
+        font-size: 2.2rem;
+    }
+
+    #Mejores .titulo h2 {
+        font-size: 2rem;
+    }
+
+    #Mejores .titulo p {
+        text-align: justify;
+        font-size: 1.5rem;
+    }
+
+    .mtragos img{
+        height: 8rem;
+        width: 8rem;
+    }
+}
+
+/*------------------- FOOTER -------------------*/
+footer {
+    margin-top: auto;
+}
+
+.footerBottom {
+    padding: 20px;
+    text-align: center;
+}
+
+.footerBottom p {
+    color: white;
+}
+
+.designer {
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin: 0px 5px;
+}
+
+@media (max-width: 700px) {
+    .footerNav ul {
+        flex-direction: column;
+    }
+
+    .footerNav ul li {
+        width: 100%;
+        text-align: center;
+        margin: 10px;
+    }
+
+    .socialIcons a {
+        padding: 8px;
+        margin: 4px;
+    }
+}
+
+#scrollBtn {
+    display: none;
+    /* Ocultar el botón por defecto */
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 24px;
+    /* Tamaño del icono */
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #ffc107;
+    cursor: pointer;
+    border: solid #ffc107 1px;
+    border-radius: 50%;
+    /* Hacer el botón redondo */
+    width: 50px;
+    /* Ancho del botón */
+    height: 50px;
+    /* Altura del botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#scrollBtn:hover {
+    background-color: rgba(255, 215, 0);
+    /* Color de fondo al pasar el mouse */
+    color: #333;
+}
+
+/*------------------- SECCION QUIENES SOMOS ---------------*/
+
+.titulo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 20px auto;
+}
+
+.titulo h1 {
+    font-size: 2rem;
+    color: #2c2c2c;
+    margin-bottom: 10px;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/*SUBRAYADO DE TEXTO*/
+
+/* .titulo h1::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    display: block;
+    margin: 0 auto;
+    background-color: #333;
+} */
+
+.titulo p {
+    padding: 20px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+    text-align: center;
+}
+
+.about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.about-img {
+    /* flex: 1;*/
+    /* margin-right: 20px;
+    overflow: hidden;*/
+
+    flex: 1;
+    display: flex;
+    /* Usar flexbox para centrar la imagen */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+    /* Añadir margen inferior para espaciado en resoluciones pequeñas */
+}
+
+.about-img img {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    transition: 0.5s ease;
+}
+
+.about-img:hover img {
+    transform: scale(1.05);
+}
+
+.about-contenido {
+    flex: 1;
+}
+
+.about-contenido h2 {
+    font-size: 2rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.about-contenido p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    margin: 0 1rem;
+}
+
+.about-contenido h3 {
+    margin-bottom: 20px;
+}
+
+/* Media query para resoluciones de pantallas */
+@media (max-width: 992px) {
+    .about {
+        flex-direction: column;
+        /* Cambiar la dirección del flex a columna */
+    }
+
+    .about-img {
+        margin-bottom: 20px;
+    }
+
+    .titulo p {
+        text-align: justify;
+        font-size: 1.5rem;
+    }
+
+    .about-contenido p {
+        text-align: justify;
+        font-size: 1.5rem;
+        margin: 0 1rem 1rem 1rem;
+    }
+
+    .about-contenido h2 {
+        text-align: center;
+    }
+
+    .titulo h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        flex-direction: column;
+    }
+
+    .about-img {
+        margin-bottom: 20px;
+    }
+
+    .titulo p {
+        text-align: justify;
+        font-size: 1rem;
+    }
+
+    .about-contenido p {
+        text-align: justify;
+        font-size: 1rem;
+        margin: 0 1rem 1rem 1rem;
+    }
+
+    .about-contenido h2 {
+        text-align: center;
+    }
+
+    .titulo h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .about {
+        flex-direction: column;
+    }
+
+    .about-img {
+        margin-bottom: 20px;
+    }
+
+    .titulo p {
+        text-align: justify;
+        font-size: 1rem;
+    }
+
+    .about-contenido p {
+        text-align: justify;
+        font-size: 1rem;
+        margin: 0 1rem 1rem 1rem;
+    }
+
+    .about-contenido h2 {
+        text-align: center;
+    }
+
+    .titulo h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .d-flex {
+        margin-bottom: 16px;
+    }
+
+    .navbar-collapse {
+        backdrop-filter: blur(40px);
+        border-radius: 20px;
+        padding: 15px;
+    }
+}
+
+/*----------SECCION QUIENE SOMOS SKILLS------------*/
+
+.skills {
+    width: 100%;
+    min-height: 30vh;
+    display: flex;
+    background-color: #f3f3f393;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.skills_contenido {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.skills_box {
+    text-align: center;
+    margin: 40px;
+    transition: transform 0.5s ease;
+}
+
+.skills_box:hover {
+    transform: translateY(-0.25rem);
+}
+
+.skills_img {
+    max-width: 70px;
+    display: block;
+}
+
+.skills_nombre {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/*--------------QUIENES SOMOS // EQUIPO----------*/
+
+.contenedor {
+    gap: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.seccion-equipo {
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    background-color: #f3f3f3;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.heading {
+    font-size: 2rem;
+    color: #2c2c2c;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    text-transform: uppercase;
+}
+
+.heading i {
+    background-color: #333;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    margin: 0 20px;
+}
+
+.cardss {
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.cardss:hover {
+    box-shadow: 5px 5px 10px #565656, -5px -5px 10px #8a8a8a;
+}
+
+strong {
+    font-size: 20px;
+    margin: 15px 20px;
+}
+
+.top-bar {
+    width: 50%;
+    height: 4px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%);
+    background-color: #333;
+    border-radius: 0 0 10px 10px;
+}
+
+.details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.details img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+    object-position: center;
+}
+
+.iconosredes {
+    width: 100%;
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconosredes a {
+    display: inline-block;
+    color: #000;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    transition: 0.5s;
+}
+
+.iconosredes a i {
+    font-size: 25px;
+}
+
+.iconosredes a:hover {
+    color: #fff;
+    background-color: #333;
+    margin: 5px;
+}
+
+@media (max-width: 612px) {
+    .cardss {
+        flex-grow: 0.7;
+    }
+}
+
+.herramientas {
+    display: flex;
+    /* Usar flexbox para distribuir los íconos */
+    justify-content: space-around;
+    /* Distribuir los íconos de manera uniforme */
+    align-items: center;
+    /* Centrar verticalmente los íconos */
+}
+
+.herramientas i {
+    font-size: 2rem;
+    /* Tamaño de fuente más grande para los íconos */
+    flex: 1;
+    /* Hacer que los íconos ocupen todo el espacio disponible */
+}
+
+/*--------------------------------------*/
+/* VISTA LOGIN*/
+.login {
+    background-image: url("../img/login-bg-01.jpg");
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.img-login-contenedor {
+    display: flex;
+    width: 20rem;
+    height: 20rem;
+    backdrop-filter: blur(40px);
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    display: flex;
+    height: auto;
+    width: 20rem;
+    padding: 15px;
+    backdrop-filter: blur(40px);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.login-form button {
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+    background-color: #ffeb00a1;
+    transition: background-color 0.5s;
+    font-weight: 500;
+}
+
+.login-form button:hover {
+    transition: background-color 0.5s;
+    background-color: #6bc701;
+    color: #f2f2f2;
+}
+
+.label {
+    display: grid;
+    grid-template-areas: "input";
+}
+
+.input {
+    margin: 0.7rem 0;
+    padding-left: 5px;
+    grid-area: input;
+    font: inherit;
+}
+
+.label-name {
+    grid-area: input;
+    margin: 14px 0;
+    z-index: 2;
+    padding: 0 0.5rem;
+    color: #cecece;
+
+    transition: transform 0.2s;
+    transform-origin: center left;
+}
+
+.input:focus+.label-name,
+.input:not(:placeholder-shown)+.label-name {
+    transform: translateY(-100%) scale(0.7);
+    background-color: #00000000;
+}
+
+.login-form input {
+    border-radius: 8px;
+    height: 2rem;
+    width: 15rem;
+}
+
+.img-login {
+    border-radius: 100px;
+    overflow: hidden;
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+}
+
+.error {
+    /* background-color: red; */
+    color: #ff0000;
+}
+
+.error-ok {
+    /* background-color: green; */
+    color: #4caf50;
+}
+
+/*-----------------------------------*/
+/* VISTA PERFIL USUARIO*/
+
+.perfil-usuario {
+    margin: 3rem 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+}
+
+.perfil-usuario div {
+    border-radius: 0;
+    height: 10rem;
+    overflow: hidden;
+}
+
+.perfil-usuario img {
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+}
+
+.img-perfil {
+    height: 2.7rem;
+    width: 2.7rem;
+    object-fit: cover;
+}
+
+.footer-perfil {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/*--------------------------------------*/
+
+.logo-index {
+    filter: drop-shadow(5px 6px 5px black);
+}
+
+
+.header-color{
+    background-color: #212529;
+}
