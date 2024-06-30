@@ -86,31 +86,34 @@
                         <label class="form-label " for="password{{ usuario.id }}">contraseña:</label>
                         <input class="form-control" type="text" id="password{{ usuario.id }}" name="password" value="{{ usuario.password }}" />
 
-                        <div >
-                            <span>Mayor de edad : {{usuario.mayor}}</span>
-                            <label for="esMayor"> 
-                                <span id="esMayor-error" ></span>
-                            </label>
-                            <select id="esMayor" name="mayor" class="select" >
-                                <option value="{{usuario.mayor}}" selected>Cambiar</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                            
-                        </div>
-                        
-                        <div class="separador-edit">
-                          <div>
-                            <span>Genero:  : {{usuario.genero}}</span>
-                            <label for="esMayor"> 
-                                <span id="genero-error" ></span>
-                            </label>
-                            <select name="genero" class="select" >
-                                <option value="{{usuario.genero}}"  selected>Cambiar</option>
-                                <option value="Varon">Varon</option>
-                                <option value="Mujer">Mujer</option>
-                                <option value="Otro">Otro</option>
-                            </select>
+                        <div class="d-flex justify-content-evenly flex-wrap">
+                          <div class="col-md-4">
+                              <label for="genero{{usuario.id}}" class="form-label">Genero</label>
+                              <select id="genero{{usuario.id}}" name="genero" class="form-select">
+                                  <option value="{{usuario.genero}}" selected>{{usuario.genero}}</option>
+                                  <option value="varon">Varon</option>
+                                  <option value="mujer">Mujer</option>
+                                  <option value="otro">Otro</option>
+                              </select>
+                              
+                          </div>
+                          
+                          <div class="col-md-4">
+                              <label for="mayor{{usuario.id}}" class="form-label">Mayor</label>
+                              <select id="mayor{{usuario.id}}" name="mayor" class="form-select">
+                                  <option value="{{usuario.mayor}}" selected>{{usuario.mayor}}</option>
+                                  <option value="si">Si</option>
+                                  <option value="no">No</option>
+                              </select>
+                          </div>
+
+                          <div class="col-md-4">
+                              <label for="rol{{usuario.id}}" class="form-label">Rol</label>
+                              <select id="rol{{usuario.id}}" name="rol" class="form-select">
+                                  <option value="{{usuario.rol}}" selected>{{usuario.rol}}</option>
+                                  <option value="USUARIO">USUARIO</option>
+                                  <option value="ADMIN">ADMIN</option>
+                              </select>
                           </div>
                         </div>
 

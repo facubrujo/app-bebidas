@@ -29,7 +29,8 @@ class Usuario(UserMixin):
             if datos:
                 for tupla in datos:
                     id, nombre, apellido, genero, email, password, mayor, rol, alta, image = tupla
-                    usuario = Usuario(id, nombre, apellido, genero, email, password, mayor, rol, alta, image)
+                    #usuario = Usuario(id, nombre, apellido, genero, email, password, mayor, rol, alta, image)
+                    usuario = Usuario(id, nombre, apellido, genero, email, password, mayor, rol, alta, None)
                     usuarios.append(usuario)
                     #print("desde Consulta---", usuario.email)
                 
@@ -41,35 +42,97 @@ class Usuario(UserMixin):
             print(f"Error al obtener usuarios: {e}")
             return []
         finally:
-            if cursor:
-                cursor.close()
+            #if cursor:
+            #    cursor.close()
             config_db.conexion.close()
 
+    # @classmethod
+    # def obtener_uno(cls, user_id):
+    #     try:
+    #         config_db.conexion.ping(reconnect=True, attempts=3, delay=5)
+            
+    #         consulta = "SELECT id, nombre, apellido, genero, email, password, mayor, rol, alta, image FROM usuarios WHERE id = %s;"
+    #         cursor = config_db.conexion.cursor()
+    #         cursor.execute(consulta, (user_id,))
+    #         datos = cursor.fetchone()
+            
+    #         if datos:
+    #             id, nombre, apellido, genero, email, password, mayor, rol, alta, image = datos
+    #             usuario = Usuario(id, nombre, apellido, genero, email, password, mayor, rol, alta, image)
+    #             return usuario
+    #         else:
+    #             print("Usuario no existe")
+    #             return None
+    #     except Exception as e:
+    #         print(f"Error al obtener usuario: {e}")
+    #         return None
+    #     finally:
+    #         if cursor:
+    #             cursor.close()
+    #         config_db.conexion.close()
+
+
+
+    # Se aplico un bucle que maneja para hacer reintentos a la conexion en caso 
+    # de que salga una excepcion para evitar que la aplicacion se caiga en caso de algun fallo 
+    # tambien al momento de conectar con la DB en lugar de conectar directamete se hace ping a 
+    # la conexion para verificar si la conexion esta cerrada reconecta (ping(reconect=True)), 
+    # esto lo intenta hacer 3 veces en un intervalo de 5 segundos
     @classmethod
     def obtener_uno(cls, user_id):
-        try:
-            config_db.conexion.ping(reconnect=True, attempts=3, delay=5)
-            
-            consulta = "SELECT id, nombre, apellido, genero, email, password, mayor, rol, alta, image FROM usuarios WHERE id = %s;"
-            cursor = config_db.conexion.cursor()
-            cursor.execute(consulta, (user_id,))
-            datos = cursor.fetchone()
-            
-            if datos:
-                id, nombre, apellido, genero, email, password, mayor, rol, alta, image = datos
-                usuario = Usuario(id, nombre, apellido, genero, email, password, mayor, rol, alta, image)
-                return usuario
-            else:
-                print("Usuario no existe")
-                return None
-        except Exception as e:
-            print(f"Error al obtener usuario: {e}")
-            return None
-        finally:
-            if cursor:
-                cursor.close()
-            
-    
+        reintentos = 0
+        reintentos_maximos=3
+        cursor=None
+        while reintentos < reintentos_maximos:
+            try:
+                #config_db.conexion.ping(reconnect=True, attempts=3, delay=5)
+                config_db.conexion.connect()
+
+                consulta = "SELECT id, nombre, apellido, genero, email, password, mayor, rol, alta, image FROM usuarios WHERE id = %s;"
+                #consulta = "SELECT id, nombre, apellido, genero, email, password, mayor, rol, alta FROM usuarios WHERE id = %s;"
+                cursor = config_db.conexion.cursor()
+                cursor.execute(consulta, (user_id,))
+                datos = cursor.fetchone()
+
+                if datos:
+                #     id, nombre, apellido, genero, email, password, mayor, rol, alta, image = datos
+                #     #id, nombre, apellido, genero, email, password, mayor, rol, alta = datos
+                #     usuario = Usuario(id, nombre, apellido, genero, email, password, mayor, rol, alta, image)
+                #     #usuario = Usuario(id, nombre, apellido, genero, email, password, mayor, rol, alta, None)
+                #     return usuario
+
+                    try:
+                        id, nombre, apellido, genero, email, password, mayor, rol, alta, image = datos
+                    except ValueError:
+                        # Si la imagen falla, establece image como None
+                        id, nombre, apellido, genero, email, password, mayor, rol, alta = datos
+                        image = None
+                    
+                    usuario = Usuario(id, nombre, apellido, genero, email, password, mayor, rol, alta, image)
+                    return usuario
+
+                else:
+                    print("usuario no existe")
+                    return None
+            except Exception as e:
+                print(f"metodo obtener_uno... error al obtener usuario: {e}")
+                reintentos += 1
+                if reintentos < reintentos_maximos:
+                    print(f"reintentando conexion... ({reintentos}/{reintentos_maximos})")
+                else:
+                    print("numero maximo de reintentos")
+                    return None
+            finally:
+                try:
+                    if cursor:
+                        cursor.close()
+                    config_db.conexion.close()
+                except Exception as error:
+                    print(f"error al cerrar la conexion: {error}")
+        return None
+
+
+
     @classmethod 
     def obtener_uno_por_email(cls, email): 
         config_db.conexion.connect()
@@ -77,7 +140,7 @@ class Usuario(UserMixin):
         cursor = config_db.conexion.cursor() 
         cursor.execute(consulta, (email,)) 
         datos = cursor.fetchone() 
-        print("-----------------",datos)
+        #print("-----------------",datos)
 
         if datos:
             id, nombre, apellido, genero, email, password, mayor, rol, alta, image = datos
@@ -143,7 +206,6 @@ class Usuario(UserMixin):
             if image is not None:
                 usuario.image = image
 
-            #print(usuario.nombre, usuario.apellido)
             config_db.conexion.connect()
             consulta = f"UPDATE usuarios SET nombre = %s, apellido = %s, genero = %s, email = %s, password = %s, mayor = %s, rol = %s, alta = %s, image = %s WHERE id = %s;"
             cursor = config_db.conexion.cursor()

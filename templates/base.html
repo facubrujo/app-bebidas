@@ -64,23 +64,29 @@
                             <a class="nav-link active" href="registro">Registro</a>
                         </li>
                         
-                        {% if user.rol == "ADMIN" %}
+                    {% if user.rol == "ADMIN" %}
                         <li class="nav-item">
                             <a class="nav-link active" href="admin_dashboard">admin-dashboard</a>
                         </li>
-                        {% endif %}
+                    {% endif %}
 
                     </ul>
                     {% if user.rol == "VISITANTE" %}
                         <div class="d-flex mt-3 mt-lg-0" role="search">
                             <a id="boton-login" href="login" class="btn btn-outline-warning">Login</a>
                         </div>
-                        {% else %}
+                    {% else %}
+
+                        
                         <div class="dropdown" style="display : table;" id="contenedor-img-login">
                             <a href="#" class="d-block link-body-emphasis 
                             text-decoration-none dropdown-toggle nav-link active " data-bs-toggle="dropdown"
                                 aria-expanded="true">
+                                {% if user.image %}
                                 <img src="{{url_for('get_user_image', user_id=user.id)}}" alt="img-usuario" class="rounded-circle img-perfil" id="img-perfil">
+                                {% else %}
+                                <img src="{{url_for('static',filename='img/usuario_icono.png')}}" alt="img-usuario" class="rounded-circle img-perfil" id="img-perfil">
+                                {% endif %}
                             </a>
                             <ul class="dropdown-menu text-small " data-popper-placement="bottom-end">
                                 <li><a class="dropdown-item" href="perfil_usuario">Mi perfil</a></li>
@@ -90,7 +96,7 @@
                                 <li><a id="cerrar-sesion" class="dropdown-item" href="/logout">Cerrar sesión</a></li>
                             </ul>
                         </div>
-                        {% endif %}
+                    {% endif %}
 
                     <!-- Modo oscuro -->
                     <div class="modo-oscuro">
@@ -159,7 +165,11 @@
                             <a href="#" class="d-block link-body-emphasis 
                             text-decoration-none dropdown-toggle nav-link active " data-bs-toggle="dropdown"
                                 aria-expanded="true">
+                                {% if user.image %}
                                 <img src="{{url_for('get_user_image', user_id=user.id)}}" alt="img-usuario" class="rounded-circle img-perfil" id="img-perfil">
+                                {% else %}
+                                <img src="{{url_for('static',filename='img/usuario_icono.png')}}" alt="img-usuario" class="rounded-circle img-perfil" id="img-perfil">
+                                {% endif %}
                             </a>
                             <ul class="dropdown-menu text-small " data-popper-placement="bottom-end">
                                 <li><a class="dropdown-item" href="perfil_usuario">Mi perfil</a></li>

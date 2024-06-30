@@ -10,7 +10,7 @@
     <section>
       <h3 hidden>Buscador</h3>
 
-      <form class="text-center" action="/bebidas/busqueda" method="GET">
+      <form class="text-center" action="/busqueda" method="GET">
         {% for letra in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
             <button type="submit" name="letra" value="{{ letra }}" class="alfabetico letra">{{ letra }}</button>
             {% endfor %}
@@ -31,11 +31,11 @@
           <button id="bebidas-todas" class="btn btn-primary" type="submit">Todas las bebidas</button>
         </form>
         {% if user.nombre != "visitante" and user.mayor == "si" %}
-        <form class="mx-1" action="/bebidas/con_alcohol">
+        <form class="mx-1" action="/con_alcohol">
           <button id="bebidas-alc" class="btn btn-primary" type="submit">Con alcohol</button>
         </form>
         {% endif %}
-        <form class="mx-1" action="/bebidas/sin_alcohol">
+        <form class="mx-1" action="/sin_alcohol">
           <button id="bebidas-no-alc" class="btn btn-primary" type="submit">Sin alcohol</button>
         </form>
       </div>

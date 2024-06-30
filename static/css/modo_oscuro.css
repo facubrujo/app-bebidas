@@ -68,7 +68,7 @@ input:checked+.slider::before {
     .about-contenido h2,
     .about-contenido p,
     .heading, .alfabetico, 
-    .letra{
+    .letra, .offcanvas{
         background-color: #292929;
         color: #f3f3f3;
     }
@@ -89,5 +89,13 @@ input:checked+.slider::before {
 
     .iconosredes a:hover {
         background-color: #ffc107
+    }
+
+    .table{
+        --bs-table-color: #fff;
+        --bs-table-bg: #2f2f2f;
+        --bs-table-striped-bg: #ffffff0d;
+        --bs-table-striped-color: #fff;
+        --bs-table-border-color: #464646;
     }
 }

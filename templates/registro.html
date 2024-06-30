@@ -10,6 +10,9 @@
                 <h2>Formulario de registro</h2>
                 <article class="formulario-label">
                     <h3 hidden>Información personal</h3>
+                    {% if mensaje %}
+                    <h4>{{ mensaje }}</h4>
+                    {% endif %}
                     <div>
                         <label for="nombre">Nombre: 
                             <span id="nombre-error" ></span>

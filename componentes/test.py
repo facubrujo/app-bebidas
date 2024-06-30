@@ -1,20 +1,28 @@
 import requests
 
 def tragos_con_alcohol():
-    url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic"
-    data = requests.get(url)
-    if data.status_code == 200:
-        data = data.json()
-    #print(data['drinks'])
-    return data['drinks']
+    try:
+        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic"
+        data = requests.get(url)
+        if data.status_code == 200:
+            data = data.json()
+        #print(data['drinks'])
+        return data['drinks']
+    except:
+        print("NO SE ECNONTRARON ")
+        return []
 
 def tragos_sin_alcohol():
-    url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic"
-    data = requests.get(url)
-    if data.status_code == 200:
-        data = data.json()
-    #print(data['drinks'])
-    return data['drinks']
+    try:
+        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic"
+        data = requests.get(url)
+        if data.status_code == 200:
+            data = data.json()
+        #print(data['drinks'])
+        return data['drinks']
+    except:
+        print("NO SE ECNONTRARON ")
+        return []
 
 def tragos_alfabetico(letra):
     try:
@@ -26,6 +34,7 @@ def tragos_alfabetico(letra):
         return data['drinks']
     except:
         print("NO SE ECNONTRARON ")
+        return []
 
 def tragos_busqueda(palabra):
     try:
@@ -37,6 +46,7 @@ def tragos_busqueda(palabra):
         return data['drinks']
     except:
         print("NO SE ECNONTRARON ")
+        return []
 
 def tragos_id(id_trago):
     try:
@@ -48,4 +58,4 @@ def tragos_id(id_trago):
         return data['drinks']
     except:
         print("NO SE ECNONTRARON ")
-        
+        return []

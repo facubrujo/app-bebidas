@@ -11,20 +11,84 @@
             <h2 class="titulo" hidden>Perfil</h2>
             <div class="perfil-usuario">
                 {% if user.image %}
-                    <img src="{{ url_for('get_user_image', user_id = user.id) }}" alt="User Image"  />
+                    <img src="{{ url_for('get_user_image', user_id = user.id) }}" alt="imag-usuario"  />
                 {% else %}
-                    No image
+                    <img src="{{url_for('static',filename='img/usuario_icono.png')}}" alt="img-usuario-default">
+                    <!--no imagen-->
                 {% endif %}
-            <ul>
-                <li>ID : {{user.id}}</li>
-                <li>Nombre : {{user.nombre}}</li>
-                <li>Email : {{user.email}}</li>
-                <li>Rol : {{user.rol}}</li>
-                <li>Alta : {{user.alta}}</li>
-                <li>Mayor de edad : {{user.mayor}}</li>
-            </ul>
+                
+                <ul>
+                    <li>ID : {{user.id}}</li>
+                    <li>Nombre : {{user.nombre}}</li>
+                    <li>Apellido : {{user.apellido}}</li>
+                    <li>Email : {{user.email}}</li>
+                    <li>Mayor : {{user.mayor}}</li>
+                    <li>Genero : {{user.genero}}</li>
+                    <li>Rol : {{user.rol}}</li>
+                    <li>Alta : {{user.alta}}</li>
+                    <li>Mayor de edad : {{user.mayor}}</li>
+                </ul>
+
+                
             </div>
             
+        </section>
+        <section class="text-center">
+            
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Modificar mis datos</button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasRightLabel">Editar mis datos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <form action="/perfil_usuario/{{user.id}}" class="row g-3 " id="formulario" method="POST" enctype="multipart/form-data">
+                        <div class="col-12">
+                            <label for="nombre{{user.id}}" class="form-label">Nombre</label>
+                            <input type="text" name="nombre" value="{{user.nombre}}" class="form-control" id="nombre{{user.id}}">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="apellido{{user.id}}" class="form-label">Apellido</label>
+                            <input type="text" name="apellido" value="{{user.apellido}}" class="form-control" id="apellido{{user.id}}">
+                        </div>
+                        <div class="d-flex justify-content-evenly">
+                            <div class="col-md-4">
+                                <label for="genero{{user.id}}" class="form-label">Genero</label>
+                                <select id="genero{{user.id}}" name="genero" class="form-select">
+                                    <option value="{{user.genero}}" selected>{{user.genero}}</option>
+                                    <option value="varon">Varon</option>
+                                    <option value="mujer">Mujer</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                                
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="mayor{{user.id}}" class="form-label">Mayor</label>
+                                <select id="mayor{{user.id}}" name="mayor" class="form-select">
+                                    <option value="{{user.mayor}}" selected>{{user.mayor}}</option>
+                                    <option value="si">Si</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Modificar datos</button>
+                        </div>
+                    </form>
+
+                    <form action="/perfil_usuario_imagen/{{user.id}}" class="row g-3 mt-3 "  method="POST" enctype="multipart/form-data">
+                        <div >
+                            <label for="archivo" class="btn-seleccionar bg-warning">Carga una imagen</label>
+                            <input id="archivo" type="file" name="image" accept="image/*">
+                        </div>
+                        <input id="submit" class="btn-enviar bg-success" type="submit" value="Modificar imagen">
+                    </form>
+                </div>
+            </div>
         </section>
         <!--<section >
             <h3 class="titulo">Mis favoritos</h3>
