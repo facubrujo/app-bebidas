@@ -646,10 +646,9 @@ footer {
 .skills_contenido {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .skills_box {
