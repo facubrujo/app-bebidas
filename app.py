@@ -14,7 +14,6 @@ from componentes.test import tragos_sin_alcohol
 from componentes.test import tragos_alfabetico
 from componentes.test import tragos_busqueda
 from componentes.modelos2 import Usuario
-import componentes.config_db as config_db
 import io
 import os
 

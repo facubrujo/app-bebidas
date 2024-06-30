@@ -10,7 +10,7 @@
       <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
       <input id="filtro" type="text" class="form-control" placeholder="buscar por nombre" aria-label="Username" aria-describedby="basic-addon1" />
     </div>
-    <section class="container">
+    <section class="container admin-lista">
       <table class="table tabla-color table-striped">
         <thead>
           <tr>
@@ -35,13 +35,7 @@
               <td>{{ usuario.apellido }}</td>
               <td>{{ usuario.genero }}</td>
               <td>{{ usuario.email }}</td>
-              <td style="
-              max-width: 100px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;"
-              
-              >{{ usuario.password }}</td>
+              <td class="admin-pass">{{ usuario.password }}</td>
               <td>{{ usuario.mayor }}</td>
               <td>{{ usuario.rol }}</td>
               <td>
@@ -163,6 +157,108 @@
         </tbody>
       </table>
     </section>
+
+    <section class="container admin-lista-movil">
+      {% for usuario in usuarios %}
+      <ul class=" list-group border-top border border-success border-5 border-end-0 border-bottom-0 border-start-0 my-2 ">
+        <li class="list-group-item">ID: {{usuario.id}}</li>
+        <li class="list-group-item nombre">Nombre: {{usuario.nombre}}</li>
+        <li class="list-group-item">Apellido: {{usuario.apellido}}</li>
+        <li class="list-group-item">Genero: {{usuario.genero}}</li>
+        <li class="list-group-item">Email: {{usuario.email}}</li>
+        <li class="list-group-item">Contraseña: <p class="admin-pass">{{usuario.password}}</p></li>
+        <li class="list-group-item">Mayor: {{usuario.mayor}}</li>
+        <li class="list-group-item">Rol: {{usuario.rol}}</li>
+        <li class="list-group-item d-flex">Alta:
+          <form action="/alta_usuario/{{ usuario.id }}" method="post" enctype="multipart/form-data">
+          {% if usuario.alta %}
+            <button class="btn btn-outline-success mx-2" type="submit">Dar baja</button>
+          {% else %}
+            <button class="btn btn-outline-warning mx-2" type="submit">Dar alta</button>
+          {% endif %}
+          </form></li>
+        <li class="list-group-item ">Editar:
+          <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#modificar{{ usuario.id }}" aria-controls="offcanvasRight">Editar / Eliminar</button>
+
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="modificar{{ usuario.id }}" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">Editar</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <!--  Modificar usuario  -->
+            <div class="offcanvas-body">
+              <h2>Modificar usuario</h2>
+              <form class="m-2 p-2" action="/admin_dashboard/{{ usuario.id }}" method="post" enctype="multipart/form-data">
+                <div class="input-grup">
+                  <label class="form-label" for="nombre{{ usuario.id }}">Nombre:</label>
+                  <input class="form-control" type="text" id="nombre{{ usuario.id }}" name="nombre" value="{{ usuario.nombre }}" />
+
+                  <label class="form-label " for="apellido{{ usuario.id }}">Apellido:</label>
+                  <input class="form-control" type="text" id="apellido{{ usuario.id }}" name="apellido" value="{{ usuario.apellido }}" />
+
+                  <label class="form-label " for="email{{ usuario.id }}">email:</label>
+                  <input class="form-control" type="email" id="email{{ usuario.id }}" name="email" value="{{ usuario.email }}" />
+
+                  <label class="form-label " for="password{{ usuario.id }}">contraseña:</label>
+                  <input class="form-control" type="text" id="password{{ usuario.id }}" name="password" value="{{ usuario.password }}" />
+
+                  <div class="d-flex justify-content-evenly flex-wrap">
+                    <div class="col-md-4">
+                      <label for="genero{{usuario.id}}" class="form-label">Genero</label>
+                      <select id="genero{{usuario.id}}" name="genero" class="form-select">
+                        <option value="{{usuario.genero}}" selected>{{usuario.genero}}</option>
+                        <option value="varon">Varon</option>
+                        <option value="mujer">Mujer</option>
+                        <option value="otro">Otro</option>
+                      </select>
+                              
+                    </div>
+                          
+                    <div class="col-md-4">
+                      <label for="mayor{{usuario.id}}" class="form-label">Mayor</label>
+                      <select id="mayor{{usuario.id}}" name="mayor" class="form-select">
+                        <option value="{{usuario.mayor}}" selected>{{usuario.mayor}}</option>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="rol{{usuario.id}}" class="form-label">Rol</label>
+                      <select id="rol{{usuario.id}}" name="rol" class="form-select">
+                        <option value="{{usuario.rol}}" selected>{{usuario.rol}}</option>
+                        <option value="USUARIO">USUARIO</option>
+                        <option value="ADMIN">ADMIN</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+
+                <button class="btn btn-primary w-100 mt-2" type="submit">Modificar usuario</button>
+              </form>
+              <br />
+              <form class="m-2 p-2" action="/alta_usuario/{{ usuario.id }}" method="post" enctype="multipart/form-data">
+                <h6>Al dar de baja este usuario sus datos quedaran en la base de datos
+                pero la cuenta quedara bloqueada</h6>
+                {% if usuario.alta %}
+                  <button class="btn btn-warning w-100" type="submit">Dar de baja este usuario</button>
+                {% else %}
+                  <button class="btn btn-success w-100" type="submit">Dar de alta este usuario</button>
+                {% endif %}
+              </form>
+              <form class="m-2 p-2" action="/eliminar_usuario/{{ usuario.id }}" method="post" enctype="multipart/form-data">
+                <h6>Al eliminar estará el usuario será eliminando de la base de datos definitivamente</h6>
+                      
+                <button class="btn btn-danger w-100" type="submit">Eliminar usuario</button>
+              </form>
+            </div>
+          </div>
+        </li>
+      </ul>
+      {% endfor %}
+    </section>
+
   {% endblock %}
 </main>
 

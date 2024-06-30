@@ -41,8 +41,15 @@ input:checked+.slider::before {
 }
 
 .modo-oscuro {
-    margin: 0 15px 0 15px;
+    margin: 5px 15px 0 15px;
 }
+
+@media (max-width: 991px) {
+    .modo-oscuro {
+        margin: 15px 0 0 0;
+    }
+}
+
 
 /*tema oscuro*/
 [data-theme='oscuro'] {
@@ -97,5 +104,10 @@ input:checked+.slider::before {
         --bs-table-striped-bg: #ffffff0d;
         --bs-table-striped-color: #fff;
         --bs-table-border-color: #464646;
+    }
+    .list-group{
+        --bs-list-group-color: #ffffff;
+        --bs-list-group-bg: #2f2f2f;
+        --bs-list-group-border-color: #dee2e647;
     }
 }
